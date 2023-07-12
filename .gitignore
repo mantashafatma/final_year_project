@@ -1,0 +1,5 @@
+*.pyc
+coviddata.pkl
+owid-covid-data.csv
+heart_analysis/__pycache__/*
+db.sqlite3
