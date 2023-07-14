@@ -50,38 +50,45 @@ def logout(request):
     Logout_process(request)
     return redirect('login')
 
-def country(request):
-    return render(request,'country.html')
+# def country(request):
+#     return render(request,'country.html')
 
 @login_required(login_url='login')
 def index(request):
      file = open("coviddata.pkl",'rb')
      df = pickle.load(file)
-     plt_div=histogram1(df.copy())
-     plt_div_sc=scatter(df.copy())
-     plt_div1=bargraphtop5(df.copy())
-     plt_div2=sunburst1(df.copy())
-     plt_div3=sunburst2(df.copy())
-     plt_div4=sunburst3(df.copy())
-     plt_div5=line1(df.copy())
-     plt_div6=line2(df.copy())
-     plt_div7=con_line1(df.copy())
-     return render(request,'index.html',{'histogram':plt_div,'bar':plt_div1,'sun':plt_div2,'sun1':plt_div3,'sun2':plt_div4,'line':plt_div5,'line1':plt_div6,'scatter':plt_div_sc,'con_line':plt_div7}) 
+     df.dropna(subset='continent',inplace=True)
+     dflastdate=df[(df['date'].str[-2:]=='07')]
+     plt_div=histogram1(dflastdate.copy())
+     plt_div_sc=scatter(dflastdate.copy())
+     plt_div1=bargraphtop5(dflastdate.copy())
+     plt_div2=sunburst1(dflastdate.copy())
+     plt_div3=sunburst2(dflastdate.copy())
+     plt_div4=sunburst3(dflastdate.copy())
+     plt_div5=line1(dflastdate.copy())
+     plt_div6=line2(dflastdate.copy())
+    # plt_div7=cont_line1(df.copy())
+     return render(request,'index.html',{'histogram':plt_div,'bar':plt_div1,'sun':plt_div2,'sun1':plt_div3,'sun2':plt_div4,'line':plt_div5,'line1':plt_div6,'scatter':plt_div_sc}) 
 
 @login_required(login_url='login')
 def country(request):
-    
+     sel_con="India"
+     if request.method=='POST':
+        sel_con=request.POST.get('country_pick')
+        #print(f'>>>>>>>>>>>>>>>>>>>>>>{sel_con}')
      file = open("coviddata.pkl",'rb')
      df = pickle.load(file)
-     plt_div1=con_line1(df.copy())
-     plt_div2=con_line2(df.copy())
-     plt_div3=con_line3(df.copy())
-     plt_div4=con_line4(df.copy())
-     plt_div5=sunburst_con(df.copy())
-     plt_div6=bargraphtop(df.copy())
+     df.dropna(subset='continent',inplace=True)
+     dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='01')]
+     plt_div1=con_line1(dfind.copy())
+     plt_div2=con_line2(dfind.copy())
+     plt_div3=con_line3(dfind.copy())
+     plt_div4=con_line4(dfind.copy())
+     plt_div5=sunburst_con(df.copy(),sel_con)
+     plt_div6=bargraphtop(df.copy(),sel_con)
 
 
-     return render(request,'country.html',{'con_line1':plt_div1,'con_line2':plt_div2,'con_line3':plt_div3,'con_line4':plt_div4,'sunburst_con':plt_div5,'bargraphtop':plt_div6})     
+     return render(request,'country.html',{'sel_con':sel_con,'con_line1':plt_div1,'con_line2':plt_div2,'con_line3':plt_div3,'con_line4':plt_div4,'sunburst_con':plt_div5,'bargraphtop':plt_div6})     
       
     #  df=pd.read_csv('owid-covid-data.csv')
     #  scatter=px.bar(df,x="continent",y="total_deaths",color="location",hover_data=['total_cases'],barmode='group')

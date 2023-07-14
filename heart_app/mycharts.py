@@ -4,9 +4,9 @@ import plotly.graph_objs as go
 import plotly.express as px
 import pandas as pd
 
-def scatter(df):
-    df.dropna(subset='continent',inplace=True)
-    dflastdate=df[(df['date'].str[-2:]=='07')]
+def scatter(dflastdate):
+    # df.dropna(subset='continent',inplace=True)
+    # dflastdate=df[(df['date'].str[-2:]=='07')]
 
     dflastdate=dflastdate.groupby(['continent','date']).sum().reset_index()
     scatter = px.scatter(dflastdate, x="date", y="total_cases", color="continent",
@@ -160,9 +160,13 @@ def line2(df):
     plt_div=plot(line,output_type='div')
     return plt_div
     
-def con_line1(df):
-    df.dropna(subset='continent',inplace=True)
-    dfind=df[(df['location']=='India') & (df['date'].str[-2:]=='01')]
+
+
+
+    #country graph
+def con_line1(dfind):
+    # df.dropna(subset='continent',inplace=True)
+    # dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='01')]
 
     line = px.line(dfind, x="date", y="total_cases")
     line.update_layout({
@@ -180,9 +184,9 @@ def con_line1(df):
     
     return plt_div
 
-def con_line2(df):
-    df.dropna(subset='continent',inplace=True)
-    dfind=df[(df['location']=='India') & (df['date'].str[-2:]=='01')]
+def con_line2(dfind):
+    # df.dropna(subset='continent',inplace=True)
+    # dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='01')]
 
     line = px.line(dfind, x="date", y="new_cases")
     line.update_layout({
@@ -201,11 +205,11 @@ def con_line2(df):
     return plt_div
 
 
-def con_line3(df):
-    df.dropna(subset='continent',inplace=True)
-    dfind=df[(df['location']=='India') & (df['date'].str[-2:]=='01')]
+def con_line3(dfind):
+    # df.dropna(subset='continent',inplace=True)
+    # dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='07')]
 
-    line = px.line(dfind, x="date", y="people_fully_vaccinated")
+    line = px.line(dfind, x="date", y="total_vaccinations")
     line.update_layout({
             'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
             'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -221,9 +225,9 @@ def con_line3(df):
     
     return plt_div
 
-def con_line4(df):
-    df.dropna(subset='continent',inplace=True)
-    dfind=df[(df['location']=='India') & (df['date'].str[-2:]=='01')]
+def con_line4(dfind):
+    # df.dropna(subset='continent',inplace=True)
+    # dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='01')]
 
     line = px.line(dfind, x="date", y="total_deaths")
     line.update_layout({
@@ -242,9 +246,10 @@ def con_line4(df):
     return plt_div
 
 
-def sunburst_con(df):
+def sunburst_con(df,sel_con):
     df.dropna(subset='continent',inplace=True)
-    dflastdate=df[(df['continent']=='Asia') & (df['date']=='2023-06-07')]
+    selected_continent=df[df['location'].str.lower()==sel_con.lower()]['continent'].iloc[0]
+    dflastdate=df[(df['continent']==selected_continent) & (df['date']=='2023-06-07')]
     sun = px.sunburst(dflastdate, 
                     path=['continent', 'location'], 
                     values='population',
@@ -265,22 +270,11 @@ def sunburst_con(df):
 
 
 
-def bargraphtop(df):
-    # df.dropna(subset='continent',inplace=True)
-    # dflastdate=df[df['date']=='2023-06-07']
-    # my_current_country='Pakistan'
-    # sorted_contries=dflastdate.sort_values(ascending=False,by=['total_cases'])
-    # top5countrydata=sorted_contries.head(5)
-    # if my_current_country not in top5countrydata.location:
-    #     top5countrydata=top5countrydata.append(sorted_contries[sorted_contries['location']==my_current_country])
-
-    # barchart=px.bar(top5countrydata,x="location",y="total_cases",orientation='v',hover_data=['total_cases','total_deaths'],barmode='group',color='total_cases')
-
-    # barchart.update_traces(width=.7)
+def bargraphtop(df,sel_con):
     df.dropna(subset='continent',inplace=True)
     dflastdate=df[df['date'].str[-5:]=='12-31']
     dflastdate2=df[df['date']=='2023-03-01']
-    my_current_country='India'
+    my_current_country=sel_con
     top5_countries_list=['United States','China','India','France','Germany']
     top_5_country_data=dflastdate[dflastdate['location'].isin(top5_countries_list)]
     top_5_country_data=top_5_country_data.append(dflastdate2[dflastdate2['location'].isin(top5_countries_list)])
