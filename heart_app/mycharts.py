@@ -20,6 +20,7 @@ def scatter(dflastdate):
         font_color="white",
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False))
+    scatter.write_image("static/index_scatter.png")
     plt_div=plot(scatter,output_type='div')
     return plt_div
 
@@ -39,6 +40,7 @@ def histogram1(df):
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False))
     plt_div= plot(histogram, output_type='div')
+    histogram.write_image("static/index_hist1.png")
     return plt_div
 
 def bargraphtop5(df):
@@ -60,6 +62,7 @@ def bargraphtop5(df):
         font_color="white",
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False))
+    barchart.write_image("static/index_bargraphtop5.png")
     plt_div= plot(barchart, output_type='div')
     return plt_div
 
@@ -77,6 +80,7 @@ def sunburst1(df):
         font_color="white",
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False))
+    sun.write_image("static/index_sunburst1.png")
     plt_div=plot(sun,output_type='div')
     return plt_div
 
@@ -98,6 +102,7 @@ def sunburst2(df):
         font_color="white",
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False))
+    sun.write_image("static/index_sunburst2.png")
     plt_div=plot(sun,output_type='div')
     return plt_div
 
@@ -119,6 +124,7 @@ def sunburst3(df):
         font_color="white",
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False))
+    sun.write_image("static/index_sunburst3.png")
     plt_div=plot(sun,output_type='div')
     return plt_div
 
@@ -138,6 +144,7 @@ def line1(df):
         height=250,
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False))
+    line.write_image("static/index_line1.png")
     plt_div=plot(line,output_type='div')
     return plt_div
 
@@ -157,6 +164,7 @@ def line2(df):
         height=250,
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False))
+    line.write_image("static/index_line2.png")
     plt_div=plot(line,output_type='div')
     return plt_div
     
@@ -253,7 +261,8 @@ def sunburst_con(df,sel_con):
     sun = px.sunburst(dflastdate, 
                     path=['continent', 'location'], 
                     values='population',
-                    title="TOTAL POPULATION",
+                    title="Population",
+
                     color_discrete_sequence = ['blue'])
     sun.update_traces(textinfo="label+percent parent")
     sun.update_layout({

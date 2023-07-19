@@ -19,12 +19,12 @@
       }
       /* Your external css file will go here. This is just for testing :) */
       .first_chart{
-        background-color: transparent; padding: 1px; width: 1000PX;height: 508px; margin-top: 50px;
+        background-color: transparent; padding: 1px; width: 1000PX;height: 508px; margin-top: 10px;
         margin-bottom: 5px;margin-left: 10px;margin-right: 2px;  border-radius: 25px;
         color: aliceblue;
       }
       .intro{
-        padding: 5px;margin-top: 50px;
+        padding: 5px;margin-top: 20px;
         padding-left: 8px;padding-right: 5px; 
         margin-bottom: 5px;border-radius: 25px;
         color: aliceblue;
@@ -69,9 +69,9 @@
       
        background-image: url('https://papers.co/wallpaper/papers.co-am67-worldmap-blue-dark-earth-view-art-35-3840x2160-4k-wallpaper.jpg'); 
       overflow: hidden;
-      position: fixed;
-      top: 0;
-       
+       /* position: fixed;  */
+      top: 0; 
+      
       width: 100%;
       
      }
@@ -88,10 +88,10 @@
 
     <title>Covid-19</title>
   </head>
-  <body  >
-    <div class="nav_bar">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
+  <body >
+    <div class="nav_bar" style="margin: 0%; padding: 0%;">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin: 0%; padding: 0%;">
+          <div class="container-fluid" style="margin: 0%; padding: 0%;">
             <a class="navbar-brand" href="#" style="font-family: cursive; color: white; font-size: large; background-color:transparent;border-radius: 10px;" ><b>Covid-19</b></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -102,13 +102,18 @@
                   <a class="nav-link active" aria-current="page" href="{% url 'index' %}"  style="color: white; font-family: Arial, Helvetica, sans-serif;"><b><u>Home</u></b></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'country' %}" style="color: white;">country</a>
+                  <a class="nav-link" href="{% url 'country' %}" style="color: white;">Country</a>
                 </li>
                 
                 <li class="nav-item">
                   <a class="btn btn-primary"  href="{% url 'logout' %}"  style="color: white; background-color: transparent; border-color: transparent;transition-duration: 0.4s;">Logout</a>
+                  
                 </li>
+                <span class="btn btn-primary"  style="  color:#FFDB58; background-color: transparent; border-color: transparent;transition-duration: 0.4s;">     {{user | safe}}</span>
+              
+
               </ul>
+              
               
             </div>
           </div>

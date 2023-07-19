@@ -13,6 +13,28 @@ import pandas as pd
 from django.contrib.auth.decorators import login_required
 import pickle
 from heart_app.mycharts import *
+
+
+from django.http import Http404
+
+
+class NoDjangoAdminForEndUserMiddleware:
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+
+        if request.path.startswith("/admin/"):
+            if request.user.is_authenticated and not request.user.is_staff:
+                raise Http404()
+
+        response = self.get_response(request)
+
+        return response
+
+
+
 def  login(request):
      if request.method=='POST':
          username=request.POST.get('username')
@@ -26,7 +48,7 @@ def  login(request):
              return redirect('index')
          else:
              return HttpResponse("username or password incorrect")
-     
+         
      return render(request,'login.html')
 
 def  signup(request):
@@ -55,6 +77,9 @@ def logout(request):
 
 @login_required(login_url='login')
 def index(request):
+     def log_user(request):
+         user_name=request.user.username
+         return render(request,{'user':user_name})
      file = open("coviddata.pkl",'rb')
      df = pickle.load(file)
      df.dropna(subset='continent',inplace=True)
@@ -72,6 +97,9 @@ def index(request):
 
 @login_required(login_url='login')
 def country(request):
+     def log_user(request):
+         user_name=request.user.username
+         return render(request,{'user':user_name})
      sel_con="India"
      if request.method=='POST':
         sel_con=request.POST.get('country_pick')
@@ -86,7 +114,7 @@ def country(request):
      plt_div4=con_line4(dfind.copy())
      plt_div5=sunburst_con(df.copy(),sel_con)
      plt_div6=bargraphtop(df.copy(),sel_con)
-
+     # TODO : Add a funtion to run ppt creation script
 
      return render(request,'country.html',{'sel_con':sel_con,'con_line1':plt_div1,'con_line2':plt_div2,'con_line3':plt_div3,'con_line4':plt_div4,'sunburst_con':plt_div5,'bargraphtop':plt_div6})     
       
