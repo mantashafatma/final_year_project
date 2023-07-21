@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.urls import include, path
 from heart_app import views
 
+
+
 urlpatterns = [
     path('',views.signup,name='signup'),
     path('login/',views.login,name='login'),
@@ -27,3 +29,4 @@ urlpatterns = [
     path('logout/',views.logout,name='logout'),
     path('country/',views.country,name='country'),
 ]
+

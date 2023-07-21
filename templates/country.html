@@ -17,6 +17,8 @@
           background-repeat: no-repeat;
           background-attachment: fixed;
           background-size: cover;
+          width: 100%;
+          
         }
         /* Your external css file will go here. This is just for testing :) */
        
@@ -26,9 +28,11 @@
         
          background-image: url('https://wallpaperaccess.com/full/3004485.png'); 
         overflow: hidden;
-        position: fixed;
+        /* position: fixed; */
         top: 0;
-         
+         margin-top: 0px;
+         position: relative;
+         padding-top: 0px;
         width: 100%;
         
        }
@@ -44,7 +48,7 @@
        
 
        .first_row{
-         height: 280px;width: 100%;  margin-top: 50px;background-color:transparent; display: flex;
+         height: 280px;width: 100%;  margin-top: 20px;background-color:transparent; display: flex;
             flex-direction: row;margin-bottom: 1px;
      }
      .chart1{
@@ -70,10 +74,10 @@
     <title>contry</title>
 </head>
 <body>
-    <div class="nav_bar">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#" style="font-family: cursive; color: white; font-size: large;border-radius: 10px;" ><b>Covid-19</b></a>
+    <div class="nav_bar" style="margin: 0%; padding: 0%;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin: 0%; padding: 0%;">
+            <div class="container-fluid" style="margin: 0%; padding: 0%;">
+              <a class="navbar-brand" href="#" style="font-family: cursive; color: white; font-size: large;border-radius: 10px; padding-left: 5px;" ><b>Covid-19</b></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -99,9 +103,11 @@
                     <li class="nav-item">
                         <a class="btn btn-primary"  href="{% url 'logout' %}"  style="color: white; background-color: transparent; border-color: transparent;transition-duration: 0.4s;">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <span class="btn btn-primary"  style="font-weight:bold ;color: rgb(0, 247, 255); background-color: transparent; border-color: transparent;transition-duration: 0.4s;">{{sel_con | safe}}</span>
-                    </li>
+                    <span class="btn btn-primary"  style="  color:#FFDB58; background-color: transparent; border-color: transparent;transition-duration: 0.4s;"> <b>user:</b>    {{user | safe}}</span>
+              
+                    
+                        <span class="btn btn-primary"  style="color: rgb(0, 247, 255); background-color: transparent; border-color: transparent;transition-duration: 0.4s; font-family:Comic Sans MS">  &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp    {{sel_con | safe}}</span>
+                    
                     </ul>
                     <!-- <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -380,14 +386,19 @@
        
     </div>
     <div class="first_row" >
-        <div class="chart1" ><p>{% load static %} 
+        <div class="chart1" ><p><h6 style="text-align: center; font-family: Comic Sans MS;">Total Cases</h6>
+            {% load static %} 
             {{con_line1 | safe}}</p></div>
-        <div  class="chart1"><p>{% load static %} 
+        <div  class="chart1"><p><h6 style="text-align: center; font-family: Comic Sans MS;">New Cases</h6>
+            {% load static %} 
             {{con_line2 | safe}}</p></div>
-        <div class="chart1" style="padding-top: 15px;" >{% load static %} 
-            {{con_line3 | safe}}</div>
-        <div  class="chart1" style="padding-top: 15px;" >{% load static %} 
-            {{con_line4 | safe}}</div>
+        <div class="chart1" >
+          <p> <h6 style="text-align: center; font-family: Comic Sans MS;">Vaccination</h6>
+             {% load static %} 
+            {{con_line3 | safe}} </p></div>
+        <div  class="chart1" ><p><h6 style="text-align: center; font-family: Comic Sans MS;">Total Deaths</h6>
+            {% load static %} 
+            {{con_line4 | safe}}</p></div>
         <div  class="chart1"  >
             <!-- <video width="255" height="255" autoplay loop muted>
             <source src="https://cdn.dribbble.com/users/2844289/screenshots/14285159/media/e8a2a235d566e45644bf048901b6198a.mp4" type="video/mp4" />
@@ -398,7 +409,8 @@
     </div>
     <div class="sec_row">
         <div class="grp1" style="width: 1000px; margin-left: 2px; ">
-            <p>{% load static%}
+            <p>
+                {% load static%}
                 {{bargraphtop | safe}}
                 </p>
         </div>
