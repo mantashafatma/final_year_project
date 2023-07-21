@@ -77,6 +77,9 @@ def logout(request):
 
 @login_required(login_url='login')
 def index(request):
+     chart_mapping={}
+     with open('chart_mapping.pkl', 'rb') as handle:
+        chart_mapping = pickle.load(handle)
      def log_user(request):
          user_name=request.user.username
          return render(request,{'user':user_name})
@@ -85,23 +88,35 @@ def index(request):
      df.dropna(subset='continent',inplace=True)
      dflastdate=df[(df['date'].str[-2:]=='07')]
      print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-     plt_div=histogram1(dflastdate.copy())
+     if 'plt_div' not in chart_mapping.keys():
+        plt_div=histogram1(dflastdate.copy())
      print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-     plt_div_sc=scatter(dflastdate.copy())
+     if 'plt_div_sc' not in chart_mapping.keys():
+        plt_div_sc=scatter(dflastdate.copy())
      print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-     plt_div1=bargraphtop5(dflastdate.copy())
+     if 'plt_div1' not in chart_mapping.keys():
+        plt_div1=bargraphtop5(dflastdate.copy())
      print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-     plt_div2=sunburst1(dflastdate.copy())
+     if 'plt_div2' not in chart_mapping.keys():
+        plt_div2=sunburst1(dflastdate.copy())
      print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-     plt_div3=sunburst2(dflastdate.copy())
-     plt_div4=sunburst3(dflastdate.copy())
+     if 'plt_div3' not in chart_mapping.keys():
+        plt_div3=sunburst2(dflastdate.copy())
+     if 'plt_div4' not in chart_mapping.keys():
+        plt_div4=sunburst3(dflastdate.copy())
      print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-     plt_div5=line1(dflastdate.copy())
+     if 'plt_div5' not in chart_mapping.keys():
+        plt_div5=line1(dflastdate.copy())
      print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-     plt_div6=line2(dflastdate.copy())
+     if 'plt_div6' not in chart_mapping.keys():
+        plt_div6=line2(dflastdate.copy())
      print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    #  with open('chart_mapping.pkl', 'wb') as handle:
+    #     pickle.dump(chart_mapping, handle, protocol=pickle.HIGHEST_PROTOCOL)
     # plt_div7=cont_line1(df.copy())
-     return render(request,'index.html',{'histogram':plt_div,'bar':plt_div1,'sun':plt_div2,'sun1':plt_div3,'sun2':plt_div4,'line':plt_div5,'line1':plt_div6,'scatter':plt_div_sc}) 
+     if len((chart_mapping.keys()))!=8:
+         return render(request,'index.html',{'histogram':plt_div,'bar':plt_div1,'sun':plt_div2,'sun1':plt_div3,'sun2':plt_div4,'line':plt_div5,'line1':plt_div6,'scatter':plt_div_sc}) 
+     return render(request,'index.html',{'histogram':chart_mapping['plt_div'],'bar':chart_mapping['plt_div1'],'sun':chart_mapping['plt_div2'],'sun1':chart_mapping['plt_div3'],'sun2':chart_mapping['plt_div4'],'line':chart_mapping['plt_div5'],'line1':chart_mapping['plt_div6'],'scatter':chart_mapping['plt_div_sc']}) 
 
 @login_required(login_url='login')
 def country(request):
