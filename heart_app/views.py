@@ -13,10 +13,10 @@ import pandas as pd
 from django.contrib.auth.decorators import login_required
 import pickle
 from heart_app.mycharts import *
-
-
+import datetime
 from django.http import Http404
-
+from warnings import filterwarnings
+filterwarnings('ignore')
 
 class NoDjangoAdminForEndUserMiddleware:
 
@@ -80,18 +80,26 @@ def index(request):
      def log_user(request):
          user_name=request.user.username
          return render(request,{'user':user_name})
-     file = open("coviddata.pkl",'rb')
+     file = open("coviddata_2.pkl",'rb')
      df = pickle.load(file)
      df.dropna(subset='continent',inplace=True)
      dflastdate=df[(df['date'].str[-2:]=='07')]
+     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
      plt_div=histogram1(dflastdate.copy())
+     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
      plt_div_sc=scatter(dflastdate.copy())
+     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
      plt_div1=bargraphtop5(dflastdate.copy())
+     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
      plt_div2=sunburst1(dflastdate.copy())
+     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
      plt_div3=sunburst2(dflastdate.copy())
      plt_div4=sunburst3(dflastdate.copy())
+     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
      plt_div5=line1(dflastdate.copy())
+     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
      plt_div6=line2(dflastdate.copy())
+     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     # plt_div7=cont_line1(df.copy())
      return render(request,'index.html',{'histogram':plt_div,'bar':plt_div1,'sun':plt_div2,'sun1':plt_div3,'sun2':plt_div4,'line':plt_div5,'line1':plt_div6,'scatter':plt_div_sc}) 
 
@@ -104,7 +112,7 @@ def country(request):
      if request.method=='POST':
         sel_con=request.POST.get('country_pick')
         #print(f'>>>>>>>>>>>>>>>>>>>>>>{sel_con}')
-     file = open("coviddata.pkl",'rb')
+     file = open("coviddata_2.pkl",'rb')
      df = pickle.load(file)
      df.dropna(subset='continent',inplace=True)
      dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='01')]

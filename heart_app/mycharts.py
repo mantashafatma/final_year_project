@@ -26,11 +26,8 @@ def scatter(dflastdate):
 
 
 def histogram1(df):
-    df.dropna(subset='continent',inplace=True)
-    dflastdate=df[(df['date'].str[-2:]=='07')]
-
-    dflastdate=dflastdate.groupby(['continent','date']).sum().reset_index()
-    histogram=px.histogram(df, x="continent",y="new_cases",color='location')
+    dflastdate=df[(df['date'].str[:]=='2023-06-07')]
+    histogram=px.bar(dflastdate, x="continent",y="total_cases",color='location')
     histogram.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
         'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -44,12 +41,11 @@ def histogram1(df):
     return plt_div
 
 def bargraphtop5(df):
-    df.dropna(subset='continent',inplace=True)
+    # df.dropna(subset='continent',inplace=True)
     dflastdate=df[df['date']=='2023-06-07']
     top5countrydata=pd.DataFrame()
     for cont in dflastdate.continent.unique():
         dftmp=dflastdate[dflastdate['continent']==cont]
-        print(cont)
         dftmp=dftmp.sort_values(ascending=False,by=['total_cases']).head(5)
         top5countrydata=top5countrydata.append(dftmp)
     barchart=px.bar(top5countrydata,y="continent",x="total_cases",color="location",orientation='h',hover_data=['total_cases','total_deaths'],barmode='group')
@@ -67,7 +63,7 @@ def bargraphtop5(df):
     return plt_div
 
 def sunburst1(df):
-    df.dropna(subset='continent',inplace=True)
+    # df.dropna(subset='continent',inplace=True)
     dflastdate=df[df['date']=='2023-06-07']
     sun = px.sunburst(dflastdate, path=['continent', 'location'], values='total_cases',title="TOTAL CASES",color_discrete_sequence = ['blue'])
     sun.update_traces(textinfo="label+percent parent")
@@ -85,7 +81,7 @@ def sunburst1(df):
     return plt_div
 
 def sunburst2(df):
-    df.dropna(subset='continent',inplace=True)
+    # df.dropna(subset='continent',inplace=True)
     dflastdate=df[df['date']=='2023-06-07']
     sun = px.sunburst(dflastdate, 
                     path=['continent', 'location'], 
@@ -107,7 +103,7 @@ def sunburst2(df):
     return plt_div
 
 def sunburst3(df):
-    df.dropna(subset='continent',inplace=True)
+    # df.dropna(subset='continent',inplace=True)
     dflastdate=df[df['date']=='2023-06-07']
     sun = px.sunburst(dflastdate, 
                     path=['continent', 'location'], 
@@ -129,7 +125,7 @@ def sunburst3(df):
     return plt_div
 
 def line1(df):
-    df.dropna(subset='continent',inplace=True)
+    # df.dropna(subset='continent',inplace=True)
     dflastdate=df[(df['date'].str[-2:]=='07')]
 
     dflastdate=dflastdate.groupby(['continent','date']).sum().reset_index()
@@ -149,7 +145,7 @@ def line1(df):
     return plt_div
 
 def line2(df):
-    df.dropna(subset='continent',inplace=True)
+    # df.dropna(subset='continent',inplace=True)
     dflastdate=df[(df['date'].str[-2:]=='07')]
 
     dflastdate=dflastdate.groupby(['continent','date']).sum().reset_index()
