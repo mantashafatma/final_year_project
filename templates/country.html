@@ -71,7 +71,7 @@
 
      
       </style>  
-    <title>contry</title>
+    <title>country</title>
 </head>
 <body>
     <div class="nav_bar" style="margin: 0%; padding: 0%;">
@@ -100,6 +100,10 @@
                         <li><a class="dropdown-item" href="#" style="color: white;">Something else here</a></li>
                         </ul>
                     </li> -->
+                    {% load static %} 
+                    <li class="nav-item">
+                        <a class="btn btn-primary"  href='{% static "covid-19-editied.pptx" %}'  style="color: white; background-color: transparent; border-color: transparent;transition-duration: 0.4s;" download>Download Report</a>
+                    </li>
                     <li class="nav-item">
                         <a class="btn btn-primary"  href="{% url 'logout' %}"  style="color: white; background-color: transparent; border-color: transparent;transition-duration: 0.4s;">Logout</a>
                     </li>

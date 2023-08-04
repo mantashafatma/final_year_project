@@ -27,6 +27,6 @@ urlpatterns = [
     path("index/", include("heart_app.urls")),
     path("admin/", admin.site.urls),
     path('logout/',views.logout,name='logout'),
-    path('country/',views.country,name='country'),
+    path('country/',views.country,name='country')
 ]
 
