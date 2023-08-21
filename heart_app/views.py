@@ -118,8 +118,11 @@ def index(request):
          return render(request,'index.html',{'histogram':plt_div,'bar':plt_div1,'sun':plt_div2,'sun1':plt_div3,'sun2':plt_div4,'line':plt_div5,'line1':plt_div6,'scatter':plt_div_sc}) 
      return render(request,'index.html',{'histogram':chart_mapping['plt_div'],'bar':chart_mapping['plt_div1'],'sun':chart_mapping['plt_div2'],'sun1':chart_mapping['plt_div3'],'sun2':chart_mapping['plt_div4'],'line':chart_mapping['plt_div5'],'line1':chart_mapping['plt_div6'],'scatter':chart_mapping['plt_div_sc']}) 
 
+
+
 @login_required(login_url='login')
 def country(request):
+     user_name=request.user.username
      def log_user(request):
          user_name=request.user.username
          return render(request,{'user':user_name})
@@ -137,37 +140,11 @@ def country(request):
      plt_div4=con_line4(dfind.copy())
      plt_div5=sunburst_con(df.copy(),sel_con)
      plt_div6=bargraphtop(df.copy(),sel_con)
-     # TODO : Add a funtion to run ppt creation script
+     # DONE : Add a funtion to run ppt creation script
+     continent=df[df['location'].str.lower()==sel_con.lower()].iloc[0]['continent']
+     download_ppt(user_name,sel_con,continent)
 
      return render(request,'country.html',{'sel_con':sel_con,'con_line1':plt_div1,'con_line2':plt_div2,'con_line3':plt_div3,'con_line4':plt_div4,'sunburst_con':plt_div5,'bargraphtop':plt_div6})     
       
-    #  df=pd.read_csv('owid-covid-data.csv')
-    #  scatter=px.bar(df,x="continent",y="total_deaths",color="location",hover_data=['total_cases'],barmode='group')
-    #  scatter.update_layout({
-    #     'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
-    #     'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
-    #     },
-    #     font_family="Comic Sans MS",
-    #     font_color="white",
-    #     xaxis=dict(showgrid=False),
-    #     yaxis=dict(showgrid=False))
 
-     #geo graph
-    #  df=pd.read_csv('owid-covid-data.csv')
-    #  geo = px.choropleth(df,       locations='iso_code',        
-    #                      color='new_cases',hover_name="location",title="cases worldwide ")
-    #  geo.update_layout({
-    #     'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
-    #     'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
-    #     },
-    #     font_family="Comic Sans MS",
-    #     font_color="white",
-    #     margin={'r':0,'t':0,'l':0,'b':0},
-       
-    #    )
 
-     
-    #  plt_div_scatter= plot(scatter, output_type='div')
-
-    #  plt_div_geo = plot(geo, output_type='div')
-    
