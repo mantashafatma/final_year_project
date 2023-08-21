@@ -10,7 +10,11 @@ def scatter(dflastdate):
 
     dflastdate=dflastdate.groupby(['continent','date']).sum().reset_index()
     scatter = px.scatter(dflastdate, x="date", y="total_cases", color="continent",
-                  hover_data=['total_deaths','total_vaccinations'], size='total_deaths')
+                  hover_data=['total_deaths','total_vaccinations'], size='total_deaths',
+                   labels={
+                   "date":"Date",
+                   "total_cases":"Total Cases"
+               },)
     scatter.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
         'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -27,7 +31,11 @@ def scatter(dflastdate):
 
 def histogram1(df):
     dflastdate=df[(df['date'].str[:]=='2023-06-07')]
-    histogram=px.bar(dflastdate, x="continent",y="total_cases",color='location')
+    histogram=px.bar(dflastdate, x="continent",y="total_cases",color='location',
+                     labels={
+                   "continent":"Continent",
+                   "total_cases":"Total Cases"
+               },)
     histogram.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
         'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -48,7 +56,11 @@ def bargraphtop5(df):
         dftmp=dflastdate[dflastdate['continent']==cont]
         dftmp=dftmp.sort_values(ascending=False,by=['total_cases']).head(5)
         top5countrydata=top5countrydata.append(dftmp)
-    barchart=px.bar(top5countrydata,y="continent",x="total_cases",color="location",orientation='h',hover_data=['total_cases','total_deaths'],barmode='group')
+    barchart=px.bar(top5countrydata,y="continent",x="total_cases",color="location",orientation='h',hover_data=['total_cases','total_deaths'],barmode='group',
+             labels={
+                   "continent":"Continent",
+                   "total_cases":"Total Cases"
+               },)
     barchart.update_traces(width=.7)
     barchart.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -129,7 +141,11 @@ def line1(df):
     dflastdate=df[(df['date'].str[-2:]=='07')]
 
     dflastdate=dflastdate.groupby(['continent','date']).sum().reset_index()
-    line = px.line(dflastdate, x="date", y="new_cases", color='continent')
+    line = px.line(dflastdate, x="date", y="new_cases", color='continent',
+                   labels={
+                   "date":"Date",
+                   "new_cases":"New Cases"
+               },)
     line.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
         'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -149,7 +165,11 @@ def line2(df):
     dflastdate=df[(df['date'].str[-2:]=='07')]
 
     dflastdate=dflastdate.groupby(['continent','date']).sum().reset_index()
-    line = px.line(dflastdate, x="date", y="positive_rate", color='continent')
+    line = px.line(dflastdate, x="date", y="positive_rate", color='continent',
+                   labels={
+                   "date":"Date",
+                   "positive_rate":"Positive Rate"
+               },)
     line.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
         'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -172,7 +192,11 @@ def con_line1(dfind):
     # df.dropna(subset='continent',inplace=True)
     # dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='01')]
 
-    line = px.line(dfind, x="date", y="total_cases")
+    line = px.line(dfind, x="date", y="total_cases",
+                   labels={
+                   "date":"Date",
+                   "total_cases":"Total Cases"
+               },)
     line.update_layout({
             'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
             'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -192,7 +216,11 @@ def con_line2(dfind):
     # df.dropna(subset='continent',inplace=True)
     # dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='01')]
 
-    line = px.line(dfind, x="date", y="new_cases")
+    line = px.line(dfind, x="date", y="new_cases",
+                  labels={
+                   "date":"Date",
+                   "new_cases":"New Cases"
+               }, )
     line.update_layout({
             'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
             'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -213,7 +241,11 @@ def con_line3(dfind):
     # df.dropna(subset='continent',inplace=True)
     # dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='07')]
 
-    line = px.line(dfind, x="date", y="total_vaccinations")
+    line = px.line(dfind, x="date", y="total_vaccinations",
+                   labels={
+                   "date":"Date",
+                   "total_vaccinations":"Total Vaccinations"
+               },)
     line.update_layout({
             'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
             'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -233,7 +265,11 @@ def con_line4(dfind):
     # df.dropna(subset='continent',inplace=True)
     # dfind=df[(df['location'].str.lower()==sel_con.lower()) & (df['date'].str[-2:]=='01')]
 
-    line = px.line(dfind, x="date", y="total_deaths")
+    line = px.line(dfind, x="date", y="total_deaths",
+                   labels={
+                   "date":"Date",
+                   "total_deaths":"Total Deaths"
+               },)
     line.update_layout({
             'plot_bgcolor': 'rgba(0, 0, 0, 0.300)',
             'paper_bgcolor': 'rgba(0, 0, 0, 0.300)',
@@ -242,6 +278,7 @@ def con_line4(dfind):
             margin = dict(t=26, l=5, r=5, b=5),
             font_family="Comic Sans MS",
             font_color="white",
+            
             height=250,
             xaxis=dict(showgrid=False),
             yaxis=dict(showgrid=False))
@@ -291,6 +328,10 @@ def bargraphtop(df,sel_con):
     my_country_data['year']=my_country_data['date'].str[:4]
     my_country_data=my_country_data.sort_values(by=['total_cases'])
     fig=px.bar(top_5_country_data[['location','total_cases','year']], x="year", y="total_cases",
+               labels={
+                   "year":"Year",
+                   "total_cases":"Total Cases"
+               },
                 color="location", hover_data=['total_cases'],
                 barmode = 'group')
     fig.add_scatter(x=my_country_data["year"],y=my_country_data["total_cases"],name=my_current_country)
@@ -447,7 +488,7 @@ def download_ppt(name_on_first_slide,sel_con,continent):
 
         insert_pic(14,Inches(5.85),Inches(0.85),Inches(7.45),Inches(5.75),'../heart_analysis/static/country_sunburst1.png')
 
-        prs.save('../heart_analysis/static/covid-19-editied.pptx')
+        prs.save('../heart_analysis/static/covid-19-visualization.pptx')
         
 
 

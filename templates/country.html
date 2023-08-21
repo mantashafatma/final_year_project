@@ -84,7 +84,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}"  style="color: white; font-family: Arial, Helvetica, sans-serif;"><b><u>Home</u></b></a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}"  style="color: white; font-family: Arial, Helvetica, sans-serif;">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'country' %}" style="color: white;">Country</a>
@@ -102,15 +102,15 @@
                     </li> -->
                     {% load static %} 
                     <li class="nav-item">
-                        <a class="btn btn-primary"  href='{% static "covid-19-editied.pptx" %}'  style="color: white; background-color: transparent; border-color: transparent;transition-duration: 0.4s;" download>Download Report</a>
+                        <a class="btn btn-primary"  href='{% static "covid-19-visualization.pptx" %}'  style="color: white; background-color: transparent; border-color: transparent;transition-duration: 0.4s;" download>Download Report</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-primary"  href="{% url 'logout' %}"  style="color: white; background-color: transparent; border-color: transparent;transition-duration: 0.4s;">Logout</a>
                     </li>
-                    <span class="btn btn-primary"  style="  color:#FFDB58; background-color: transparent; border-color: transparent;transition-duration: 0.4s;"> <b>user:</b>    {{user | safe}}</span>
+                    <span class="btn btn-primary"  style="  color:#FFDB58; background-color: transparent; border-color: transparent;transition-duration: 0.4s;text-transform:uppercase;"> User Name :   {{user | safe}}</span>
               
                     
-                        <span class="btn btn-primary"  style="color: rgb(0, 247, 255); background-color: transparent; border-color: transparent;transition-duration: 0.4s; font-family:Comic Sans MS">  &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp    {{sel_con | safe}}</span>
+                        <span class="btn btn-primary"  style="color: rgb(0, 247, 255); background-color: transparent; border-color: transparent;transition-duration: 0.4s; font-family:Comic Sans MS;text-transform:uppercase">  &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp      {{sel_con | safe}}</span>
                     
                     </ul>
                     <!-- <form class="d-flex">
